@@ -1,4 +1,4 @@
-import * as types from '../actions/action-types';
+import * as types from './action-types';
 
 export function getWidgetsSuccess(widgets) {
   return {

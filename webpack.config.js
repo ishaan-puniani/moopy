@@ -2,13 +2,13 @@ var path = require('path');
 var  ExtractTextPlugin  = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: "./app/app.js",
+    entry: "./src/app/app.js",
     output: {
-        filename: "public/js/bundle.js",
-        sourceMapFilename: "public/js/bundle.map"
+        filename: "dist/app/js/bundle.js",
+        sourceMapFilename: "dist/app/js/bundle.map"
     },
   plugins: [
-    new ExtractTextPlugin('public/css/autosuggest.css', { allChunks: true })
+    new ExtractTextPlugin('dist/app/css/autosuggest.css', { allChunks: true })
   ],
     devtool: '#source-map',
     module: {

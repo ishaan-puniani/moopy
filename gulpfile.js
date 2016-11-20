@@ -10,50 +10,47 @@ var rename = require('gulp-rename');
  * Build (Webpack)
  */
 
-gulp.task('clean:build', function() {
-    del('./public/js/*')
+gulp.task('clean:build', function () {
+    del('./dist')
 })
 
-gulp.task('build', ['clean:build'], function() {
-  return gulp.src('./app/app.js')
-    .pipe(webpack(webpackConfig))
-    .on('error', function handleError() {
-      this.emit('end'); // Recover from errors
-    })
-    .pipe(gulp.dest('./'));
+gulp.task('build', ['clean:build'], function () {
+    return gulp.src('./src/app/app.js')
+        .pipe(webpack(webpackConfig))
+        .on('error', function handleError() {
+            this.emit('end'); // Recover from errors
+        })
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('watch:build', function() {
-  return gulp.watch('./app/**/*', ['build']);
+gulp.task('watch:build', function () {
+    return gulp.watch('./src/app/**/*', ['build']);
 });
 
 
-/**
- * API Server (Database)
- */
-
-gulp.task('restore-database', function() {
-  return gulp.src('./data/restore.json')
-    .pipe(rename('db.json'))
-    .pipe(gulp.dest('./data'));
+gulp.task('copy:server', function () {
+    return gulp.src(['./src/server/**/*']).pipe(gulp.dest('./dist/server'));
 });
-
-gulp.task('serve:api', ['restore-database'], function(done) {
-  cp.exec('node ./node_modules/json-server/bin/index.js --watch ./data/db.json --port 3001', {stdio: 'inherit'})
-    .on('close', done);
+gulp.task('copy:files', function () {
+    return gulp.src(['./index.html']).pipe(gulp.dest('./dist/server'));
 });
-
+gulp.task('copy:css', function () {
+    return gulp.src(['./src/css/styles.css']).pipe(gulp.dest('./dist/app/css'));
+});
+gulp.task('copy:package', function () {
+    return gulp.src(['./package.json']).pipe(gulp.dest('./dist'));
+});
 
 /**
  * Node Server (Express)
  */
 
-gulp.task('serve:node', function(done) {
-  nodemon({
-    exec: 'node ./node_modules/babel-cli/bin/babel-node.js ./server.js',
-    watch: ['server.js'],
-    ext: 'js html'
-  });
+gulp.task('serve:node',['package'] ,function (done) {
+    nodemon({
+        exec: 'node ./node_modules/babel-cli/bin/babel-node.js ./dist/server/server.js',
+        watch: ['server.js'],
+        ext: 'js html'
+    });
 });
 
 
@@ -61,6 +58,8 @@ gulp.task('serve:node', function(done) {
  * Main tasks
  */
 
-gulp.task('serve', ['serve:node', 'serve:api']);
+gulp.task('serve', ['serve:node']);
+
+gulp.task('package', ['build', 'copy:server', 'copy:package', 'copy:css', 'copy:files']);
 gulp.task('watch', ['build', 'watch:build']);
 gulp.task('default', ['serve']);
