@@ -8,7 +8,7 @@ var CrawledItemSchema = new mongoose.Schema({
     name: String,
     displayName: String,
     type: String,
-    schema: String,
+    model: String,
     id: String,
     img: String
 }, {timestamps: true});

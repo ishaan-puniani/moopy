@@ -9,3 +9,6 @@ export const DELETE_WIDGET_SUCCESS = 'DELETE_WIDGET_SUCCESS';
 
 // Search Layout
 export const LOAD_SEARCH_LAYOUT = 'LOAD_SEARCH_LAYOUT';
+
+// People Picker
+export const GET_PEOPLE_SUCCESS = 'GET_PEOPLE_SUCCESS';

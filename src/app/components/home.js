@@ -1,4 +1,5 @@
 import React from 'react';
+import PeoplePicker from './containers/peoplePicker-form-container'
 import Autosuggest, {ItemAdapter} from 'react-bootstrap-autosuggest'
 
 const predefinedTags = [
@@ -28,7 +29,12 @@ class TagAdapter extends ItemAdapter {
 TagAdapter.instance = new TagAdapter()
 
 const Home = React.createClass({
+    selectedItems:[],
+    save:function () {
+     //   let items = this.refs.peoplePicker.getSelectedItems()
+     // alert(items );
 
+    },
 
     render: function () {
         return (
@@ -63,6 +69,8 @@ const Home = React.createClass({
                     the <a href="https://github.com/bradwestfall/CSS-Tricks-React-Series">Github documentation</a> for
                     this guide.
                 </p>
+                <PeoplePicker ref="peoplePicker"/>
+                <button onClick={this.save} >Test</button>
             </div>
         );
     }

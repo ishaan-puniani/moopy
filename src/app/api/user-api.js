@@ -7,7 +7,7 @@ import { getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actio
  */
 
 export function getUsers() {
-  return axios.get('http://localhost:3001/users')
+  return axios.get('/api/users')
     .then(response => {
       store.dispatch(getUsersSuccess(response.data));
       return response;
