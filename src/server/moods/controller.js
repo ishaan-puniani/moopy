@@ -72,6 +72,71 @@ function updateMoodFromChildren(item, callback) {
 
 
 module.exports = {
+    createDashboard: function (req, res) {
+        var name = req.body.name, children = [], selections = req.body.selection;
+
+        for (var idx = 0; idx < selections.length; idx++) {
+            children.push(selections[idx].value);
+        }
+
+        var mood = new Mood({
+            children: children,
+            name: name,
+            type: "dashboard"
+        });
+
+        mood.save(function (err, data) {
+            if (err) {
+                res.send({error: "Unable to save"});
+            } else {
+                res.send({success: true});
+            }
+        });
+    },
+    updateDashboard: function (req, res) {
+        var name = req.body.name, children = [], selections = req.body.selection;
+
+        for (var idx = 0; idx < selections.length; idx++) {
+            children.push(selections[idx].value);
+        }
+
+        Mood.findOne({name: name}, function (err, data) {
+            if (err || data === null) {
+                res.send({error: "Unable to find dashboard with name " + name});
+            } else {
+                data.children = children;
+                data.save(function (err, data) {
+                    if (err) {
+                        res.send({error: "Unable to update"});
+                    } else {
+                        res.send({success: true});
+                    }
+                });
+            }
+        });
+
+    },
+
+    getAllDashboards: function (req, res) {
+        Mood.find({type: "dashboard"}, function (err, data) {
+            if (err || data === null) {
+                res.send({error: "Unable to find dashboards"});
+            } else {
+                res.send(data);
+            }
+        });
+    },
+    getDashboard: function (req, res) {
+        var name = req.params.name;
+        Mood.findOne({name: name, type: "dashboard"}, function (err, data) {
+            if (err || data === null) {
+
+                res.send({error: "Unable to find dashboard with name " + name});
+            } else {
+                res.send(data);
+            }
+        });
+    },
     getMoods: function (req, res) {
         console.log("hi");
     },

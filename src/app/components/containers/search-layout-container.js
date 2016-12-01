@@ -12,7 +12,9 @@ const mapStateToProps = function(store) {
   } else if (searchType === 'widgets') {
     totalResults = store.widgetState.widgets.length;
   }
-
+  else if (searchType === 'dashboards') {
+      totalResults = store.dashboardState.dashboards.length;
+  }
   return {
     searchType,
     title: store.searchLayoutState.title,

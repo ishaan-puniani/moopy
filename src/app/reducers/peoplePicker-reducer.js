@@ -8,15 +8,17 @@ const initialState = {
 };
 
 const peoplePickerReducer = function (state = initialState, action) {
-    debugger;
     switch (action.type) {
 
         case types.GET_PEOPLE_SUCCESS:
             return Object.assign({}, state, {
-                selectedPeople: null,
                 people: action.people,
                 reposMessage: 'Type at least one character to get suggestions',
                 reposMore: null
+            });
+            case types.SET_SELECTED_PEOPLE:
+            return Object.assign({}, state, {
+                selectedPeople: action.selectedPeople
             });
     }
 

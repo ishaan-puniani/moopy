@@ -7,7 +7,7 @@
 var PORT = "3000";
 var DB_HOST = "localhost";
 var DB_PORT = "27017";
-var DB_NAME = "moody";
+var DB_NAME = "moopy";
 
 
 var express = require('express');

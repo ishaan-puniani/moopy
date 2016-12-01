@@ -11,6 +11,6 @@ var router = express.Router();
 
 
 router.get('/', ctrl.getMoods);
-
+router.get('/create', ctrl.getMoods);
 
 module.exports = router;

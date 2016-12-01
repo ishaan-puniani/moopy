@@ -9,7 +9,11 @@ import SearchLayoutContainer from './components/containers/search-layout-contain
 import Home from './components/home';
 import UserListContainer from './components/containers/user-list-container';
 import UserProfileContainer from './components/containers/user-profile-container';
+
 import WidgetListContainer from './components/containers/widget-list-container';
+import DashBoardListContainer from './components/containers/dashboard-list-container';
+import DashBoardContainer from './components/containers/dashboard-container';
+import UpdateDashBoardContainer from './components/containers/dashboard-update-container';
 
 export default (
   <Router history={browserHistory}>
@@ -22,6 +26,15 @@ export default (
           </Route>
           <Route path=":userId" component={UserProfileContainer} />
         </Route>
+
+      <Route path="dashboards">
+        <Route component={SearchLayoutContainer}>
+          <IndexRoute component={DashBoardListContainer} />
+        </Route>
+        <Route path="create" component={UpdateDashBoardContainer} />
+        <Route path="/:name/edit" component={UpdateDashBoardContainer} />
+        <Route path=":name" component={DashBoardContainer} />
+      </Route>
 
         <Route path="widgets">
           <Route component={SearchLayoutContainer}>

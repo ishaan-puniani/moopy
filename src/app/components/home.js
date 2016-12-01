@@ -1,6 +1,9 @@
 import React from 'react';
 import PeoplePicker from './containers/peoplePicker-form-container'
+
 import Autosuggest, {ItemAdapter} from 'react-bootstrap-autosuggest'
+
+import CreateGroup from './containers/createGroup-form-container'
 
 const predefinedTags = [
     {value: 'Good', img: 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f607.png'},
@@ -31,7 +34,7 @@ TagAdapter.instance = new TagAdapter()
 const Home = React.createClass({
     selectedItems:[],
     save:function () {
-     //   let items = this.refs.peoplePicker.getSelectedItems()
+       // let items = this.refs.peoplePicker.getSelectedItems()
      // alert(items );
 
     },
@@ -40,13 +43,13 @@ const Home = React.createClass({
         return (
             <div className="home-page">
                 <h1>The app is now using Redux</h1>
-                <Autosuggest
+                {/*<Autosuggest
                     datalist={['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Rev.', 'Prof.']}
                     placeholder="Name prefix"
-                />
+                />*/}
 
 
-                <Autosuggest
+              {/*  <Autosuggest
                     bsSize="small"
                     datalist={predefinedTags}
                     datalistOnly={true}
@@ -58,7 +61,7 @@ const Home = React.createClass({
                     //buttonAfter={!multiLine && <Button onClick={onClear}>&times;</Button>}
                     //showToggle={!multiLine}
                     //    onChange={onChange}
-                />
+                />*/}
 
 
                 <p>
@@ -69,8 +72,11 @@ const Home = React.createClass({
                     the <a href="https://github.com/bradwestfall/CSS-Tricks-React-Series">Github documentation</a> for
                     this guide.
                 </p>
-                <PeoplePicker ref="peoplePicker"/>
-                <button onClick={this.save} >Test</button>
+               {/* <PeoplePicker ref="peoplePicker"/>
+                <button onClick={this.save} >Test</button>*/}
+
+                <hr />
+                <CreateGroup />
             </div>
         );
     }
