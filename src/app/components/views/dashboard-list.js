@@ -11,7 +11,7 @@ export default function(props) {
         return (
           <div key={dashboard.name} className="data-list-item">
             <div className="details">
-              <Link to={'/dashboards/' + dashboard.name}>{dashboard.name}</Link></div>
+              <Link to={'/dashboards/' + dashboard.name}>{dashboard.name}</Link> -{props.moods[dashboard.name]?props.moods[dashboard.name].mood:""} </div>
             <div className="controls">
               <button onClick={props.subscribe.bind(null, dashboard.name)} className="delete">Delete</button>
             </div>

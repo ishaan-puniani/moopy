@@ -12,3 +12,4 @@ ReactDOM.render(
   <Provider store={store}>{router}</Provider>,
   document.getElementById('root')
 );
+

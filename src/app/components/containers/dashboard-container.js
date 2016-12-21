@@ -15,7 +15,10 @@ const DashboardContainer = React.createClass({
 
     render: function () {
         return (
-            <Dashboard {...this.props.dashboard} />
+            <Dashboard
+                dashboard={this.props.dashboard}
+                moods={this.props.moods}
+            />
         );
     }
 
@@ -23,7 +26,8 @@ const DashboardContainer = React.createClass({
 
 const mapStateToProps = function (store) {
     return {
-        dashboard: store.dashboardState.dashboard
+        dashboard: store.dashboardState.dashboard,
+        moods: store.dashboardState.moods
     };
 };
 

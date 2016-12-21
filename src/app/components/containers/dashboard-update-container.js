@@ -8,12 +8,20 @@ import {connect} from 'react-redux';
 import store from '../../store';
 
 const DashboardUpdateContainer = React.createClass({
+    isEdit: false,
     componentDidMount: function () {
-        let name = this.props.params.name;
+        const me = this;
+        let name = me.props.params.name;
         let selectedDashboard = this.props.dashboard;
-        if (name.length>0 && name === selectedDashboard.name) {
-            var selectedChildren = selectedDashboard.children.map(function(child){return {value:child}});
+
+        if (name && name.length > 0 && name === selectedDashboard.name) {
+            var selectedChildren = selectedDashboard.children.map(function (child) {
+                return {value: child}
+            });
             store.dispatch(setSelectedPeople(selectedChildren));
+            me.isEdit = true;
+            me.refs.name.value = name;
+            me.refs.internalName.value = name;
         }
     },
 
@@ -38,7 +46,9 @@ const DashboardUpdateContainer = React.createClass({
         return (
             <div>
                 <form onSubmit={this.createGroup} className="">
-                    <input type="text" ref="name" placeholder="Name"/>
+                    <input type="text" ref="name" placeholder="Name" className={this.isEdit ? 'hidden' : ''}/>
+                    <input type="text" ref="internalName" readOnly="readOnly" disabled="disabled"
+                           className={this.isEdit ? '' : 'hidden'}/>
                     <PeoplePicker />
                     <button>Create</button>
                     <a onClick={this.updateGroup}>Update</a>
@@ -54,7 +64,7 @@ const mapStateToProps = function (store, ownProps) {
 
     return {
         selectedPeople: store.peoplePickerState.selectedPeople,
-        dashboard: store.dashboardState.dashboard,
+        dashboard: store.dashboardState.dashboard
 
     };
 };

@@ -130,7 +130,6 @@ module.exports = {
         var name = req.params.name;
         Mood.findOne({name: name, type: "dashboard"}, function (err, data) {
             if (err || data === null) {
-
                 res.send({error: "Unable to find dashboard with name " + name});
             } else {
                 res.send(data);
@@ -138,10 +137,35 @@ module.exports = {
         });
     },
     getMoods: function (req, res) {
-        console.log("hi");
+        var selectedPeople = req.body;
+        Mood.aggregate([
+                {$match: {name: {$in: selectedPeople}}},
+                {"$sort": {"createdAt": -1}},
+                {
+                    $group: {
+                        _id: "$name",
+                        mood: {$first: "$mood"},
+                        at: {$first: "$createdAt"},
+                        type: {$first: "$type"}
+                    }
+                }
+            ], function (err, data) {
+                var outcome = {}
+                if (err) {
+                    console.log(err, data);
+                } else if (data && data.length > 0) {
+                    outcome = data.reduce(function (moods, user) {
+                        //console.log(moods,user);
+                        moods[user._id] = user;
+                        return moods;
+                    }, {})
+                }
+                res.send(outcome);
+            }
+        );
     },
 
-    setMood: function (req, res) {
+    addMood: function (req, res) {
         var name = req.params.user;
         console.log({name: name, mood: req.params.mood});
         new Mood({name: req.params.user, mood: req.params.mood}).save(function (err, data) {

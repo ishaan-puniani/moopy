@@ -14,8 +14,12 @@ const DashboardListContainer = React.createClass({
     subscribeDashboard: function () {
     },
     render: function () {
+        debugger;
         return (
-            <DashboardList dashboards={this.props.dashboards} subscribe={this.subscribeDashboard}/>
+            <DashboardList dashboards={this.props.dashboards}
+                           moods={this.props.moods}
+                           subscribe={this.subscribeDashboard}
+            />
         );
     }
 
@@ -23,7 +27,8 @@ const DashboardListContainer = React.createClass({
 
 const mapStateToProps = function (store) {
     return {
-        dashboards: store.dashboardState.dashboards
+        dashboards: store.dashboardState.dashboards,
+        moods: store.dashboardState.moods
     };
 };
 

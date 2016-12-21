@@ -10,7 +10,8 @@ var ctrl = require('./controller');
 var router = express.Router();
 
 
-router.get('/', ctrl.getMoods);
-router.get('/create', ctrl.getMoods);
+//router.get('/', ctrl.getMood);
+router.post('/', ctrl.getMoods);
+router.get('/create', ctrl.addMood);
 
 module.exports = router;

@@ -4,6 +4,7 @@ import PeoplePicker from './containers/peoplePicker-form-container'
 import Autosuggest, {ItemAdapter} from 'react-bootstrap-autosuggest'
 
 import CreateGroup from './containers/createGroup-form-container'
+import { Button } from 'react-bootstrap';
 
 const predefinedTags = [
     {value: 'Good', img: 'https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f607.png'},
@@ -42,6 +43,7 @@ const Home = React.createClass({
     render: function () {
         return (
             <div className="home-page">
+                <Button bsStyle="primary">Primary</Button>
                 <h1>The app is now using Redux</h1>
                 {/*<Autosuggest
                     datalist={['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Rev.', 'Prof.']}

@@ -34,5 +34,17 @@ export function getDashboardSuccess(dashboard) {
         dashboard
     };
 }
+export function setDashboardUsersForMoodSynch(users) {
+    return {
+        type: types.SET_DASHBOARD_USERS_FOR_MOOD_SYNC,
+        users
+    };
+}
 
+export function getUsersMoodSynchSucess(moods) {
+    return {
+        type: types.GET_DASHBOARD_USERS_FOR_MOOD_SYNC,
+        moods
+    };
+}
 

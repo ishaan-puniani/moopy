@@ -57,6 +57,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
+    console.log(err);
     res.sendStatus(err.status || 500);
 });
 
