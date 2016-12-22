@@ -136,6 +136,7 @@ module.exports = {
             }
         });
     },
+
     getMoods: function (req, res) {
         var selectedPeople = req.body;
         Mood.aggregate([
@@ -164,7 +165,6 @@ module.exports = {
             }
         );
     },
-
     addMood: function (req, res) {
         var name = req.params.user;
         console.log({name: name, mood: req.params.mood});
@@ -178,7 +178,16 @@ module.exports = {
                 });
             }
         });
-
-
+    },
+    getMoodDetailsOfUser:function(req,res){
+        var name = req.params.user;
+        console.log({name: name, mood: req.params.mood});
+        Mood.find({name: req.params.user},function (err, data) {
+            if (err) {
+                res.send({error: "Error while geting user data"});
+            } else {
+                res.send(data);
+            }
+        });
     }
 };

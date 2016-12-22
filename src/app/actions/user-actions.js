@@ -20,3 +20,9 @@ export function userProfileSuccess(userProfile) {
     userProfile
   };
 }
+export function userMoodsSuccess(userMoods) {
+    return {
+        type: types.USER_MOOD_SUCCESS,
+        userMoods
+    };
+}

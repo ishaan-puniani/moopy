@@ -12,6 +12,7 @@ var router = express.Router();
 
 //router.get('/', ctrl.getMood);
 router.post('/', ctrl.getMoods);
+router.post('/:user', ctrl.getMoodDetailsOfUser);
 router.get('/create', ctrl.addMood);
 
 module.exports = router;

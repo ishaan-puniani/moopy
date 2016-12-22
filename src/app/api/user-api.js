@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { getUsersSuccess, deleteUserSuccess, userProfileSuccess } from '../actions/user-actions';
+import { getUsersSuccess, deleteUserSuccess, userProfileSuccess, userMoodsSuccess } from '../actions/user-actions';
 
 /**
  * Get all users
@@ -45,7 +45,7 @@ export function deleteUser(userId) {
 
 export function getProfile(userId) {
 
-  // Start with an empty profile object and build it up
+ /* // Start with an empty profile object and build it up
   // from multiple XHR requests.
   let profile = {};
 
@@ -78,6 +78,14 @@ export function getProfile(userId) {
 
       });
 
-    });
+    });*/
 
+}
+
+export function getMood(userId,start, end){
+    return axios.post('/api/moods/Vivek')
+        .then(response => {
+            store.dispatch(userMoodsSuccess(response.data));
+            return response;
+        });
 }
