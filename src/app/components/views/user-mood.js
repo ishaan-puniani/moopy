@@ -14,14 +14,20 @@ export default function (props) {
 
         props.onDateRangeChanges("xxx", "yyy")
     };
-
+var label=[], values=[];
+if(props.moods){
+    props.moods.forEach(function(mood){
+        label.push(mood.createdAt);
+        values.push(mood.mood);
+    });
+}
 
     var data = {
-        labels: [new Date(), new Date(new Date().getTime() + 24 * 60 * 60 * 1000)],
+        labels: label,//[new Date(), new Date(new Date().getTime() + 24 * 60 * 60 * 1000)],
         datasets: [
             {
                 label: "Aktiv",
-                data: [1, 5],
+                data: values,//[1, 5],
                 tension: 0,
                 borderColor: "rgb(248,169,113)",
                 backgroundColor: "rgba(248,169,113,0.4)",

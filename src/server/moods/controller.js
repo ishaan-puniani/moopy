@@ -182,7 +182,7 @@ module.exports = {
     getMoodDetailsOfUser:function(req,res){
         var name = req.params.user;
         console.log({name: name, mood: req.params.mood});
-        Mood.find({name: req.params.user},function (err, data) {
+        Mood.find({name: req.params.user},null, {sort: {createdAt: -1}},function (err, data) {
             if (err) {
                 res.send({error: "Error while geting user data"});
             } else {
