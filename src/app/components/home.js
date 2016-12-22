@@ -1,6 +1,6 @@
 import React from 'react';
 //import Chart from "chart.js" ;
-import {Line as LineChart} from 'react-chartjs';
+import {Line} from 'react-chartjs-2';
 //const LineChart = require('react-chartjs').Line;
 import PeoplePicker from './containers/peoplePicker-form-container'
 
@@ -43,38 +43,7 @@ const Home = React.createClass({
 
     },
 
-    rand:function(min, max, num) {
-        var rtn = [];
-        while (rtn.length < num) {
-            rtn.push((Math.random() * (max - min)) + min);
-        }
-        return rtn;
-    },
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [5, 8, 2, 0, 1, 2, 0]
-            },
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [-2, -5, 0, -3, -1, 0, -1]
-            }
-        ]
-    },
+
 
 
     render: function () {
@@ -82,7 +51,7 @@ const Home = React.createClass({
             <div className="home-page">
                 <Button bsStyle="primary">Primary</Button>
                 <h1>The app is now using Redux</h1>
-                <LineChart data={this.data} width="600" height="250"/>
+
 
                 {/*<Autosuggest
                  datalist={['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Rev.', 'Prof.']}
