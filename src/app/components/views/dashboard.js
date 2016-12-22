@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {HorizontalBar} from 'react-chartjs-2';
+import { browserHistory } from 'react-router'
 
 // Using "Stateless Functional Components"
 export default function (props) {
@@ -60,8 +61,7 @@ export default function (props) {
     }
 
     var elementClick = function (elems) {
-        alert(elems);
-        debugger;
+        browserHistory.push('/users/1')
     }
     return (
         <div className="dashboard-details">
