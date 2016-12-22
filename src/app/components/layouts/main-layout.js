@@ -12,13 +12,13 @@ export default function (props) {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="/">Moopy</a>
+                            <Link to="/" activeClassName="active">Moopy</Link>
                         </Navbar.Brand>
                     </Navbar.Header>
-                    <Nav>
+                  {/*  <Nav>
                         <NavItem eventKey={1} href="/">Link</NavItem>
                         <NavItem eventKey={2} href="/users">Users</NavItem>
-                    </Nav>
+                    </Nav>*/}
                     <ul className="nav navbar-nav">
                         <li><Link to="/" activeClassName="active">Home</Link></li>
                         <li><Link to="/users" activeClassName="active">Users</Link></li>
