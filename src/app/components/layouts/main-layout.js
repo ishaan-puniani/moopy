@@ -12,7 +12,7 @@ export default function (props) {
                 <Navbar>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <Link to="/" activeClassName="active">Moopy</Link>
+                            <Link to="/" activeClassName="active"><img src="/images/logo.png" style={{width: "120px"}}/></Link>
                         </Navbar.Brand>
                     </Navbar.Header>
                     <ul className="nav navbar-nav">
@@ -23,7 +23,7 @@ export default function (props) {
                     </ul>
                 </Navbar>
             </header>
-            <main>
+            <main className="container">
                 {props.children}
             </main>
         </div>

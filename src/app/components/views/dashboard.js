@@ -1,7 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {HorizontalBar} from 'react-chartjs-2';
-import { browserHistory } from 'react-router'
+import {browserHistory} from 'react-router'
+import {moodCssClassForColor} from '../../utils/utils';
+import {ProgressBar} from 'react-bootstrap';
+
 
 // Using "Stateless Functional Components"
 export default function (props) {
@@ -63,38 +66,48 @@ export default function (props) {
     var elementClick = function (elems) {
         browserHistory.push('/users/1')
     }
+
+
+    var moodValue = (props.moods[props.dashboard.name] ? props.moods[props.dashboard.name].mood : 0), mood = 20 * moodValue;
+    var moodImage = "/images/" + moodValue + ".png";
+    var cssClass = moodCssClassForColor(mood);
+
     return (
         <div className="dashboard-details">
             <div className="details">
-                <h1>{props.dashboard.name}</h1>
-                <div className="dashboardAvgChart">
-
-                    <HorizontalBar data={dataOfDashboard}
-                                   width={10}
-                                   height={20}
-                                   options={option}
-                    />
+                <div className="pageHeader background">
+                    <h1>{props.dashboard.name} <img className="dashboardMoodImg" src={moodImage} alt="mood"/></h1>
+                    <div>
+                        <ProgressBar now={mood} bsStyle={cssClass}/>
+                    </div>
+                    <Link to={'/' + props.dashboard.name + '/edit'}>EDIT</Link>
                 </div>
-                <h3>Individuals:</h3>
-                <Link to={'/' + props.dashboard.name + '/edit'}>EDIT</Link>
-                <div className="dashboardChildrenChart" style={childrenChartStyle}>
-                    <HorizontalBar data={dataOfChildren}
-                                   width={100}
-                                   height={height}
-                                   options={option}
-                                   onElementsClick={elementClick}/>
+
+                <div className="data-list pageContent background">
+                    <h2 id="header2_2"> Members </h2>
+
+                    {props.dashboard.children.map(child => {
+                        var childMoodValue = (props.moods[child] ? props.moods[child].mood : 0);
+                        var childMood = 20 * childMoodValue;
+                        var childMoodImage = "/images/" + childMoodValue + ".png";
+                        var childCssClass = moodCssClassForColor(childMood);
+                        return (
+                            <div key={child} className="data-list-item members">
+                                <div>
+                                    <h2>
+                                        {child} <img className="dashboardMoodImg" src={childMoodImage} alt="mood"/>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <ProgressBar now={childMood} bsStyle={childCssClass}/>
+                                </div>
+                            </div>
+                        );
+
+                    })}
                 </div>
                 <ul className="repos">
 
-                    {props.dashboard.children.map(child => {
-
-                        return (
-                            <li key={child}>
-                                <a>{child}</a>
-                                -{props.moods[child] ? props.moods[child].mood : ""}
-                            </li>);
-
-                    })}
 
                 </ul>
             </div>
