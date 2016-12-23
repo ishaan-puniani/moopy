@@ -5,12 +5,12 @@ import SearchFormContainer from '../containers/search-form-container';
 export default function (props) {
     return (
         <div className="search">
-            <header className="search-header">
+            <header className="search-header pageHeader background">
                 {props.title}
                 <SearchFormContainer searchType={props.searchType}/>
                 <div>Showing {props.totalResults} items</div>
             </header>
-            <div className="search-results">
+            <div className="search-results  pageContent background">
                 {props.children}
             </div>
             <footer className="search-footer">

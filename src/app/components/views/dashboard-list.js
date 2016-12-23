@@ -6,7 +6,10 @@ import {ProgressBar} from 'react-bootstrap';
 // Using "Stateless Functional Components"
 export default function (props) {
     return (
-        <div>
+        <div style={{
+            width: "100%",
+            overflow: "hidden"
+        }}>
             {props.dashboards.map(dashboard => {
                 var moodValue = (props.moods[dashboard.name] ? props.moods[dashboard.name].mood : 0), mood = 20 * moodValue;
                 var moodImage = "/images/" + moodValue + ".png";

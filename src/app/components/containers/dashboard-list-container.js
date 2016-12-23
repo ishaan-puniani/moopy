@@ -20,6 +20,7 @@ const DashboardListContainer = React.createClass({
             <div>
                 <div><Link to="/dashboards/create" activeClassName="active">Create Dashboard</Link></div>
                 <div><a href="/dashboards/create">Create Dashboard</a></div>
+
                 <DashboardList dashboards={this.props.dashboards}
                                moods={this.props.moods}
                                subscribe={this.subscribeDashboard}
