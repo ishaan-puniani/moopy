@@ -48,7 +48,7 @@ const Home = React.createClass({
 
     render: function () {
         return (
-            <div className="home-page">
+            <div className="home-page pageContent background">
                 <Button bsStyle="primary">Primary</Button>
                 <h1>The app is now using Redux</h1>
 

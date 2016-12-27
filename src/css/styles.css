@@ -219,3 +219,8 @@ main {
 .members .progress{
     width: 100%;
 }
+.dashboardTitle{
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}

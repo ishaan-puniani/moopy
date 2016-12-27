@@ -18,7 +18,7 @@ export default function (props) {
                     <div className="col-md-4" key={dashboard.name}>
                         <div className="thumbnail">
                             <Link to={'/dashboards/' + dashboard.name}>
-                                <h1>{dashboard.name}</h1>
+                                <h1 className="dashboardTitle">{dashboard.name}</h1>
                                 <img src={moodImage} alt="mood" style={{width: "25%"}}/>
                             </Link>
                             <div className="caption">
