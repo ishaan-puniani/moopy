@@ -1,32 +1,42 @@
 import React from 'react';
 import * as userApi from '../../api/user-api';
 import * as widgetApi from '../../api/widget-api';
-import { loadSearchLayout } from '../../actions/search-layout-actions';
+import {searchDashboard} from '../../api/dashboard-api';
+import {loadSearchLayout} from '../../actions/search-layout-actions';
 import SearchForm from '../views/search-form';
+
 
 const SearchFormContainer = React.createClass({
 
-  search: function(event) {
-    event.preventDefault();
+    search: function (event) {
+        event.preventDefault();
 
-    // By assigning a "child" ref to <SearchForm />, we
-    // can use that reference to gain access to the
-    // .getQuery() method. See the code for
-    // <SearchForm /> to see how it returns a value.
-    let query = this.refs.child.getQuery();
+        // By assigning a "child" ref to <SearchForm />, we
+        // can use that reference to gain access to the
+        // .getQuery() method. See the code for
+        // <SearchForm /> to see how it returns a value.
+        let query = this.refs.child.getQuery();
+        switch (this.props.searchType) {
+            case 'users': {
+                userApi.searchUsers(query);
+                break
+            }
+            case 'widgets': {
+                widgetApi.searchWidgets(query);
+                break
+            }
+            case 'dashboards': {
+                searchDashboard(query);
+                break
+            }
+        }
+    },
 
-    if (this.props.searchType === 'users') {
-      userApi.searchUsers(query);
-    } else if (this.props.searchType === 'widgets') {
-      widgetApi.searchWidgets(query);
+    render: function () {
+        return (
+            <SearchForm search={this.search} ref="child"/>
+        );
     }
-  },
-
-  render: function() {
-    return (
-      <SearchForm search={this.search} ref="child" />
-    );
-  }
 
 });
 

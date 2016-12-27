@@ -30,8 +30,9 @@ export function updateDashboard(data) {
         });
 }
 
-export function getAllDashboards() {
-    return axios.get('/api/dashboard')
+export function getAllDashboards(query) {
+    var url = '/api/dashboard' + (query ? '?q=' + query : '');
+    return axios.get(url)
         .then(response => {
             store.dispatch(getAllDashboardsSuccess(response.data));
             if (response.data) {
@@ -66,4 +67,8 @@ export function getMoods(names) {
             store.dispatch(getUsersMoodSynchSucess(response.data));
             return response;
         });
+}
+
+export function searchDashboard(query) {
+    return getAllDashboards(query);
 }

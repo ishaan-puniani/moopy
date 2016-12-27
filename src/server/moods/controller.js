@@ -118,7 +118,12 @@ module.exports = {
     },
 
     getAllDashboards: function (req, res) {
-        Mood.find({type: "dashboard"}, function (err, data) {
+        var query = {type: "dashboard"};
+        if (req.query && req.query.q) {
+            console.log(req.query.q);
+            query.name = new RegExp(req.query.q, "i");
+        }
+        Mood.find(query, function (err, data) {
             if (err || data === null) {
                 res.send({error: "Unable to find dashboards"});
             } else {
@@ -179,10 +184,10 @@ module.exports = {
             }
         });
     },
-    getMoodDetailsOfUser:function(req,res){
+    getMoodDetailsOfUser: function (req, res) {
         var name = req.params.user;
         console.log({name: name, mood: req.params.mood});
-        Mood.find({name: req.params.user},null, {sort: {createdAt: -1}},function (err, data) {
+        Mood.find({name: req.params.user}, null, {sort: {createdAt: -1}}, function (err, data) {
             if (err) {
                 res.send({error: "Error while geting user data"});
             } else {

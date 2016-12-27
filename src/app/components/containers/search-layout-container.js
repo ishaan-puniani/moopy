@@ -1,25 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import SearchLayout from '../layouts/search-layout';
 
-const mapStateToProps = function(store) {
+const mapStateToProps = function (store) {
 
-  let searchType = store.searchLayoutState.searchType;
-  let totalResults = 0;
+    let searchType = store.searchLayoutState.searchType;
+    let totalResults = 0;
 
-  if (searchType === 'users') {
-    totalResults = store.userState.users.length;
-  } else if (searchType === 'widgets') {
-    totalResults = store.widgetState.widgets.length;
-  }
-  else if (searchType === 'dashboards') {
-      totalResults = store.dashboardState.dashboards.length;
-  }
-  return {
-    searchType,
-    title: store.searchLayoutState.title,
-    totalResults
-  };
+    switch (searchType) {
+        case 'users': {
+            totalResults = store.userState.users.length;
+            break
+        }
+        case 'widgets': {
+            totalResults = store.widgetState.widgets.length;
+            break
+        }
+        case 'dashboards': {
+            totalResults = store.dashboardState.dashboards.length;
+            break
+        }
+    }
+    return {
+        searchType,
+        title: store.searchLayoutState.title,
+        totalResults
+    };
 
 };
 
