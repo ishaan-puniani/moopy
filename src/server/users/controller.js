@@ -2,6 +2,7 @@
  * Created by ishaan.puniani on 2016-11-20.
  */
 var User = require('./model');
+var utils = require('../utils');
 module.exports = {
     getAll: function (req, res) {
         res.send([
@@ -54,13 +55,6 @@ module.exports = {
         console.log("hi");
     },
     register: function (req, res) {
-        console.log("hi");
-    },
-    update: function (req, res) {
-        console.log("hi");
-    },
-    login: function (req, res) {
-        console.log(req.body);
         var user = new User({
             name: req.body.userId,
             password: req.body.password
@@ -70,9 +64,54 @@ module.exports = {
                 console.log("Error while saving user");
                 res.send({success: false})
             } else {
-                res.send({success: true, token: usr.id, profile: usr});
+                res.send({
+                    success: true,
+                    token: utils.tokenise(usr.id),
+                    profile: usr
+                });
             }
         });
+    },
+    update: function (req, res) {
+        console.log("hi");
+    },
+    login: function (req, res) {
+        console.log(req.body);
+
+        User.findOne({
+            name: req.body.userId,
+            password: req.body.password
+        }, function (err, usr) {
+            if (err) {
+                console.log("Error while user login");
+                res.send({success: false})
+            } else {
+                // if user is found and password is right
+                // create a token
+
+                res.send({
+                    success: true,
+                    token: utils.tokenise(usr.id),
+                    profile: usr
+                });
+
+
+            }
+        })
+    },
+    getProfile: function (req, res) {
+        if (req.query && req.query.id) {
+            User.findById(req.query.id, function (err, user) {
+                if (err) {
+                    res.send({success: false});
+                } else {
+                    res.send({success: true, profile: user});
+                }
+            });
+        } else {
+            res.send({success: true, profile: req.user});
+        }
+
     },
     validate: function (req, res) {
         console.log("hi");

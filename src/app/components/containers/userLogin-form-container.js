@@ -2,7 +2,7 @@
  * Created by ishaan.puniani on 2016-11-27.
  */
 import React from 'react';
-import {login} from '../../api/user-api';
+import {login,getProfile} from '../../api/user-api';
 import {connect} from 'react-redux';
 import {cookiesGet} from 'redux-cookies';
 import store from '../../store';
@@ -10,10 +10,7 @@ const LoginFormContainer = React.createClass({
     componentDidMount: function () {
         let authData = store.dispatch(cookiesGet('auth'));
         if (authData) {
-            authData = JSON.parse(authData);
-            if (authData.success) {
-                userApi.getProfile(authData.token);
-            }
+           getProfile();
         }
     },
     login: function (event) {

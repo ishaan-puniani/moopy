@@ -23,6 +23,7 @@ mongoose.connect("mongodb://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME, functio
     console.log("DB connected");
 });
 
+
 /**
  * Anything in dist can be accessed statically without
  * this express router getting involved
