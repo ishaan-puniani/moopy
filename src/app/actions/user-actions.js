@@ -26,3 +26,9 @@ export function userMoodsSuccess(userMoods) {
         userMoods
     };
 }
+export function userLoginSuccess(user) {
+    return {
+        type: types.LOGIN_SUCCESS,
+        user
+    };
+}

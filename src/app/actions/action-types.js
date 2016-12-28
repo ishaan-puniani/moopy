@@ -15,6 +15,10 @@ export const LOAD_SEARCH_LAYOUT = 'LOAD_SEARCH_LAYOUT';
 export const GET_PEOPLE_SUCCESS = 'GET_PEOPLE_SUCCESS';
 export const SET_SELECTED_PEOPLE = 'SET_SELECTED_PEOPLE';
 
+// Auth
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+
 // Dashboard
 
 export const GET_ALL_DASHBOARDS = 'GET_ALL_DASHBOARDS';

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
-import { getUsersSuccess, deleteUserSuccess, userProfileSuccess, userMoodsSuccess } from '../actions/user-actions';
+import { getUsersSuccess, deleteUserSuccess, userProfileSuccess, userMoodsSuccess, userLoginSuccess } from '../actions/user-actions';
+import { cookiesSet, cookiesGet, cookiesExpire  } from 'redux-cookies';
 
 /**
  * Get all users
@@ -86,6 +87,18 @@ export function getMood(userId,start, end){
     return axios.post('/api/moods/Vivek')
         .then(response => {
             store.dispatch(userMoodsSuccess(response.data));
+            return response;
+        });
+}
+
+export function login(userId,password){
+    return axios.post('/api/users/login',{userId:userId, password:password})
+        .then(response => {
+            if(response.data.success){
+                store.dispatch(cookiesSet('auth', response.data, { expires: 365 }));
+                store.dispatch(userLoginSuccess(response.data.profile));
+            }
+
             return response;
         });
 }

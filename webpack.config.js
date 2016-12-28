@@ -1,5 +1,5 @@
 var path = require('path');
-var  ExtractTextPlugin  = require('extract-text-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: "./src/app/app.js",
@@ -7,25 +7,26 @@ module.exports = {
         filename: "dist/app/js/bundle.js",
         sourceMapFilename: "dist/app/js/bundle.map"
     },
-  plugins: [
-    new ExtractTextPlugin('dist/app/css/autosuggest.css', { allChunks: true })
-  ],
+    plugins: [
+        new ExtractTextPlugin('dist/app/css/autosuggest.css', {allChunks: true})
+    ],
     devtool: '#source-map',
     module: {
         loaders: [
-			{
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=./node_modules/bootstrap-sass/assets/stylesheets')
-      },
-			{
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('style', 'css!sass?includePaths[]=./node_modules/bootstrap-sass/assets/stylesheets')
+            },
+            {
                 loader: 'babel',
                 exclude: /node_modules/
             }
         ]
     },
-  resolve: {
-    alias: {
-      'Autosuggest.scss': path.resolve(__dirname, 'node_modules/react-bootstrap-autosuggest/src/Autosuggest.scss')
+    resolve: {
+        extensions: ['', '.webpack.js', '.web.js', '.js'],
+        alias: {
+            'Autosuggest.scss': path.resolve(__dirname, 'node_modules/react-bootstrap-autosuggest/src/Autosuggest.scss')
+        }
     }
-  }
 }

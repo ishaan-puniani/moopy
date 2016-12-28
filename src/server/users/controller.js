@@ -1,10 +1,10 @@
 /**
  * Created by ishaan.puniani on 2016-11-20.
  */
-
+var User = require('./model');
 module.exports = {
     getAll: function (req, res) {
-        res.send( [
+        res.send([
                 {
                     "id": 1,
                     "name": "Michael Jackson",
@@ -52,5 +52,30 @@ module.exports = {
     },
     getMyDhashboards: function (req, res) {
         console.log("hi");
+    },
+    register: function (req, res) {
+        console.log("hi");
+    },
+    update: function (req, res) {
+        console.log("hi");
+    },
+    login: function (req, res) {
+        console.log(req.body);
+        var user = new User({
+            name: req.body.userId,
+            password: req.body.password
+        });
+        user.save(function (err, usr) {
+            if (err) {
+                console.log("Error while saving user");
+                res.send({success: false})
+            } else {
+                res.send({success: true, token: usr.id, profile: usr});
+            }
+        });
+    },
+    validate: function (req, res) {
+        console.log("hi");
     }
+
 };

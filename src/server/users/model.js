@@ -6,8 +6,10 @@ var mongoose = require('mongoose');
 
 var UserItemSchema = new mongoose.Schema({
     name: String,
+    password: String,
     displayName: String,
-    subscriptions:[]
+    subscriptions: [],
+    permissions: ["read"]
 }, {timestamps: true});
 
 var UserItem = mongoose.model('User', UserItemSchema);

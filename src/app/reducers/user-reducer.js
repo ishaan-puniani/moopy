@@ -6,7 +6,8 @@ const initialState = {
     userProfile: {
         repos: []
     },
-    userMoods: []
+    userMoods: [],
+    currentUser:{}
 };
 
 const userReducer = function (state = initialState, action) {
@@ -27,6 +28,9 @@ const userReducer = function (state = initialState, action) {
 
         case types.USER_MOOD_SUCCESS: {
             return Object.assign({}, state, {userMoods: action.userMoods});
+        }
+        case types.LOGIN_SUCCESS: {
+            return Object.assign({}, state, {currentUser: action.user});
         }
     }
 

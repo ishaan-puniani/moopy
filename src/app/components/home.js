@@ -7,6 +7,7 @@ import PeoplePicker from './containers/peoplePicker-form-container'
 import Autosuggest, {ItemAdapter} from 'react-bootstrap-autosuggest'
 
 import CreateGroup from './containers/createGroup-form-container'
+import Login from './containers/userLogin-form-container'
 import {Button} from 'react-bootstrap';
 
 const predefinedTags = [
@@ -52,7 +53,7 @@ const Home = React.createClass({
                 <Button bsStyle="primary">Primary</Button>
                 <h1>The app is now using Redux</h1>
 
-
+<Login />
                 {/*<Autosuggest
                  datalist={['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Rev.', 'Prof.']}
                  placeholder="Name prefix"
