@@ -4,10 +4,9 @@
  * http://expressjs.com/en/starter/generator.html
  */
 
-var PORT = "3000";
-var DB_HOST = "localhost";
-var DB_PORT = "27017";
-var DB_NAME = "moopy";
+var HOST = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || undefined;
+var PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
+var MONGO_URI = process.env.MONGOLAB_URI ||  process.env.MONGOHQ_URL || process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME || "mongodb://localhost/moopy";
 
 
 var express = require('express');
@@ -19,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME, function () {
+mongoose.connect(MONGO_URI, function () {
     console.log("DB connected");
 });
 
@@ -68,7 +67,7 @@ app.use(function (err, req, res, next) {
  */
 
 
-app.listen(PORT, function () {
+app.listen(PORT, HOST, function () {
     console.log('Serving: localhost:' + PORT);
 });
 
