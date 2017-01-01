@@ -140,7 +140,7 @@ const PeoplePickerFormContainer = React.createClass({
         }
     },
     render: function () {
-        this.selectedPeople= this.props.selectedPeople
+        this.selectedPeople= this.props.selectedPeople;
         return (
             <Autosuggest
                 datalist={this.props.people}

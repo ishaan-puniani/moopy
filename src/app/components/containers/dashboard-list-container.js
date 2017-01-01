@@ -15,7 +15,6 @@ const DashboardListContainer = React.createClass({
     subscribeDashboard: function () {
     },
     render: function () {
-        debugger;
         return (
             <div>
                 <div><Link to="/dashboards/create" activeClassName="active">Create Dashboard</Link></div>

@@ -171,9 +171,9 @@ module.exports = {
         );
     },
     addMood: function (req, res) {
-        var name = req.params.user;
-        console.log({name: name, mood: req.params.mood});
-        new Mood({name: req.params.user, mood: req.params.mood}).save(function (err, data) {
+        var name = req.query.user, mood = req.query.mood;
+        console.log({name: name, mood: mood});
+        new Mood({name: name, mood: mood}).save(function (err, data) {
             if (err) {
                 res.send({error: "Error while saving Data"});
             } else {

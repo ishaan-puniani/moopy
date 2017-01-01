@@ -1,7 +1,7 @@
 import * as types from '../actions/action-types';
 
 const initialState = {
-    selectedPeople: null,
+    selectedPeople: [],
     people: null,
     reposMessage: 'Type at least one character to get suggestions',
     reposMore: null

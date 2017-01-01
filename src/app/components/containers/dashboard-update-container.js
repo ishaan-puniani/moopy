@@ -4,6 +4,7 @@
 import React from 'react';
 import PeoplePicker from './peoplePicker-form-container';
 import {setSelectedPeople} from '../../actions/peoplePicker-actions';
+import {createDashboard, updateDashboard} from '../../api/dashboard-api';
 import {connect} from 'react-redux';
 import store from '../../store';
 
@@ -45,14 +46,21 @@ const DashboardUpdateContainer = React.createClass({
     render: function () {
         return (
             <div>
-                <form onSubmit={this.createGroup} className="">
-                    <input type="text" ref="name" placeholder="Name" className={this.isEdit ? 'hidden' : ''}/>
-                    <input type="text" ref="internalName" readOnly="readOnly" disabled="disabled"
-                           className={this.isEdit ? '' : 'hidden'}/>
-                    <PeoplePicker />
-                    <button>Create</button>
-                    <a onClick={this.updateGroup}>Update</a>
-                </form>
+                <div className="pageHeader background">
+                    <h1>{this.isEdit ? "Update " + this.props.params.name : "Create New" }</h1>
+                </div>
+                <div className="pageContent background">
+                    <form onSubmit={this.createGroup} className="updateDashboardForm">
+                        <h4>Dashboard Name</h4>
+                        <input type="text" ref="name" placeholder="Name" className={this.isEdit ? 'hidden' : 'name'}/>
+                        <input type="text" ref="internalName" readOnly="readOnly" disabled="disabled"
+                               className={this.isEdit ? 'name' : 'hidden'}/>
+                        <h4>Members</h4>
+                        <PeoplePicker />
+                        <a className={this.isEdit ? 'hidden' : 'btn btn-primary'} onClick={this.createGroup}>Create</a>
+                        <a className={this.isEdit ? 'btn btn-primary' : 'hidden'} onClick={this.updateGroup}>Update</a>
+                    </form>
+                </div>
             </div>
         );
     }

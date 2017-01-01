@@ -224,3 +224,12 @@ main {
     white-space:nowrap;
     text-overflow:ellipsis;
 }
+.updateDashboardForm > input.name{
+    margin: 0 0 15px 0;
+    padding: 8px;
+    width: 100%;
+}
+.updateDashboardForm .btn.btn-primary{
+    margin: 15px 0;
+}
+

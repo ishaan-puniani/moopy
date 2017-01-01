@@ -6,8 +6,6 @@ import {getDashboard} from '../../api/dashboard-api';
 const DashboardContainer = React.createClass({
 
     componentDidMount: function () {
-        debugger;
-
         let name = this.props.params.name;
 
         getDashboard(name);
