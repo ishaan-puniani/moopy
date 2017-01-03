@@ -64,7 +64,7 @@ function updateMoodFromChildren(item, callback) {
     ], function (err, data) {
         console.log(data);
         item.mood = data[0].avgMoodOfChildren;
-        console.log("Updated Mood",item.mood);
+        console.log("Updated Mood", item.mood);
         item.save(function (saveErr, saved) {
             console.log("Mood Updated");
             callback();
@@ -187,13 +187,20 @@ module.exports = {
         });
     },
     getMoodDetailsOfUser: function (req, res) {
-        var name = req.params.user;
-        console.log({name: name, mood: req.params.mood});
-        Mood.find({name: req.params.user}, null, {sort: {createdAt: -1}}, function (err, data) {
+        var name = req.params.user, start = req.body.start, end = req.body.end, old = parseInt(req.body.old);
+        console.log({name: name, start: start, end: end, old: old});
+        var cutoff = new Date();
+        cutoff.setDate(cutoff.getDate() - old);
+        Mood.find({
+            name: req.params.user,
+            createdAt: {
+                $gte: cutoff
+            }
+        }, null, {sort: {createdAt: -1}}, function (err, data) {
             if (err) {
                 res.send({error: "Error while geting user data"});
             } else {
-                res.send(data);
+                res.send({success: true, moods: data});
             }
         });
     }

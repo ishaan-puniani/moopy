@@ -51,8 +51,8 @@ export function deleteUser(userId) {
  * getProfile() is much more complex because it has to make
  * three XHR requests to get all the profile info.
  */
-export function getProfile(userId) {
-    var url = '/api/users/profile' + (userId ? "?id=" + userId : "");
+export function getProfileOfCurrentUser(userId) {
+    var url = '/api/users/profile';
     return axios.get(url)
         .then(response => {
             if (response.data && response.data.success) {
@@ -97,12 +97,21 @@ export function getProfile(userId) {
      });*/
 
 }
-
-export function getMood(userId, start, end) {
-    return axios.post('/api/moods/Vivek')
+export function getUserProfile(userId) {
+    var url = '/api/users/details' + (userId ? "?id=" + userId : "");
+    return axios.get(url)
         .then(response => {
             if (response.data && response.data.success) {
-                store.dispatch(userMoodsSuccess(response.data));
+                store.dispatch(userProfileSuccess(response.data.profile));
+            }
+            return response;
+        });
+}
+export function getMoodOverDuration(userId, start, end, old) {
+    return axios.post('/api/moods/' + userId, {start: start, end: end, old: old})
+        .then(response => {
+            if (response.data && response.data.success) {
+                store.dispatch(userMoodsSuccess(response.data.moods));
             }
             return response;
         });

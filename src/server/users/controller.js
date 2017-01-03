@@ -69,7 +69,7 @@ module.exports = {
     },
     getProfile: function (req, res) {
         if (req.query && req.query.id) {
-            User.findById(req.query.id, function (err, user) {
+            User.findOne({name:req.query.id}, function (err, user) {
                 if (err) {
                     res.send({success: false});
                 } else {

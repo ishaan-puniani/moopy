@@ -5,19 +5,24 @@ import UserMood from '../views/user-mood';
 import * as userApi from '../../api/user-api';
 
 const UserProfileContainer = React.createClass({
-
+    selected: "-1",
     componentDidMount: function () {
-        let userId = this.props.params.userId
-        userApi.getProfile(userId)
+        let userId = this.props.params.userId;
+        //userApi.getMoodOverDuration(userId, start, end);
+        userApi.getUserProfile(userId)
     },
-    onDateRangeChanges: function (start, end) {
-        userApi.getMood(start, end);
+    onDateRangeChanges: function (start, end, old, selected) {
+        let userId = this.props.params.userId;
+        this.selected = selected;
+        userApi.getMoodOverDuration(userId, start, end, old);
     },
     render: function () {
         return (
             <div>
                 <UserProfile {...this.props.profile} />
-                <UserMood onDateRangeChanges={this.onDateRangeChanges} moods={this.props.moods}/>
+                <UserMood label={this.props.params.userId} onDateRangeChanges={this.onDateRangeChanges}
+                          moods={this.props.moods} selected={this.selected}
+                />
             </div>
         );
     }

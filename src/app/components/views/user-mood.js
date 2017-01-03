@@ -4,29 +4,80 @@ import {Line} from 'react-chartjs-2';
 // gor week
 // Using "Stateless Functional Components"
 export default function (props) {
-    alert(props.moods);
+    var name = props.label;
+    console.log(props.selected);
+    var xAxes = props.selected == "0" ? [{
+            type: 'time',
+            time: {
+                format: "HH:mm",
+                unit: 'hour',
+                unitStepSize: 4,
+                displayFormats: {
+                    'minute': 'HH:mm',
+                    'hour': 'HH:mm'
+                }
+            }
+        }] : [{
+            type: 'time',
+            time: {
+                unit: 'day',
+                unitStepSize: 1,
+                displayFormats: {
+                    'millisecond': 'MMM DD',
+                    'second': 'MMM DD',
+                    'minute': 'MMM DD',
+                    'hour': 'MMM DD',
+                    'day': 'MMM DD',
+                    'week': 'MMM DD',
+                    'month': 'MMM DD',
+                    'quarter': 'MMM DD',
+                    'year': 'MMM DD',
+                }
+            }
+        }];
     var rangeChanged = function (ths) {
         debugger;
+        var start = "", end = "";
         var selectedValue = ths.target.value;
-        if (selectedValue === 0) {
+        if (selectedValue === "0") {
+            props.onDateRangeChanges(start, end, 1, selectedValue);
 
         }
+        if (selectedValue === "1") {
+            props.onDateRangeChanges(start, end, 7, selectedValue);
 
-        props.onDateRangeChanges("xxx", "yyy")
+        }
+        if (selectedValue === "2") {
+            props.onDateRangeChanges(start, end, 30, selectedValue)
+        }
+        if (selectedValue === "3") {
+            props.onDateRangeChanges(start, end, 90, selectedValue)
+        }
+        if (selectedValue === "4") {
+            props.onDateRangeChanges(start, end, 365, selectedValue)
+        }
+        if (selectedValue === "5") {
+            props.onDateRangeChanges(start, end, 3650, selectedValue)
+        }
+
+        if (selectedValue === "-1") {
+            //   props.onDateRangeChanges(start, end,7)
+        }
+
     };
-var label=[], values=[];
-if(props.moods){
-    props.moods.forEach(function(mood){
-        label.push(mood.createdAt);
-        values.push(mood.mood);
-    });
-}
+    var label = [], values = [];
+    if (props.moods) {
+        props.moods.forEach(function (mood) {
+            label.push(mood.createdAt);
+            values.push(mood.mood);
+        });
+    }
 
     var data = {
         labels: label,//[new Date(), new Date(new Date().getTime() + 24 * 60 * 60 * 1000)],
         datasets: [
             {
-                label: "Aktiv",
+                label: name,
                 data: values,//[1, 5],
                 tension: 0,
                 borderColor: "rgb(248,169,113)",
@@ -40,49 +91,27 @@ if(props.moods){
         stacked: true,
         title: {
             display: true,
-            text: "testMain Label"
+            text: name
         },
         scales: {
-           /* for today : xAxes: [{
-                type: 'time',
-                time: {
-                    format: "HH:mm",
-                    unit: 'hour',
-                    unitStepSize: 4,
-                    displayFormats: {
-                        'minute': 'HH:mm',
-                        'hour': 'HH:mm'
-                    }
-                }
-            }]*/
-            xAxes: [{
-                type: 'time',
-                time: {
-                    unit: 'day',
-                    unitStepSize: 1,
-                    displayFormats: {
-                        'millisecond': 'MMM DD',
-                        'second': 'MMM DD',
-                        'minute': 'MMM DD',
-                        'hour': 'MMM DD',
-                        'day': 'MMM DD',
-                        'week': 'MMM DD',
-                        'month': 'MMM DD',
-                        'quarter': 'MMM DD',
-                        'year': 'MMM DD',
-                    }
-                }
-            }],
+            /* for today : */
+            xAxes: xAxes,
+
             yAxes: [{
-                position: "left"
+                position: "left",
+                ticks: {
+                    max: 6,
+                    min: 0
+                }
             }]
         }
     };
-
+    console.log(options);
 
     return (
-        <div className="user-moods">
+        <div className="pageContent user-moods background">
             <select onChange={rangeChanged}>
+                <option value={-1}>-- Select --</option>
                 <option value={0}>Today</option>
                 <option value={1}>This Week</option>
                 <option value={2}>This Month</option>
@@ -90,10 +119,8 @@ if(props.moods){
                 <option value={4}>This Year</option>
                 <option value={5}>All</option>
             </select>
-            <div style={{width: "500px", height: "300px"}}>
+            <div>
                 <Line data={data}
-                      width={10}
-                      height={20}
                       options={options}
                 />
             </div>

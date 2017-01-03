@@ -2,7 +2,7 @@
  * Created by ishaan.puniani on 2016-11-27.
  */
 import React from 'react';
-import {login, getProfile, register} from '../../../api/user-api';
+import {login, getProfileOfCurrentUser, register} from '../../../api/user-api';
 import {connect} from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 
@@ -13,7 +13,7 @@ const LoginLinksContainer = React.createClass({
     componentDidMount: function () {
         let authData = store.dispatch(cookiesGet('auth'));
         if (authData) {
-            getProfile();
+            getProfileOfCurrentUser();
         }
     },
     login: function (event) {

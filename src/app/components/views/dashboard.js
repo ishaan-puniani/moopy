@@ -95,7 +95,10 @@ export default function (props) {
                             <div key={child} className="data-list-item members">
                                 <div>
                                     <h2>
-                                        {child} <img className="dashboardMoodImg" src={childMoodImage} alt="mood"/>
+                                        <Link to={'/users/' + child}>{child} <img className="dashboardMoodImg"
+                                                                                  src={childMoodImage}
+                                                                                  alt="mood"/>
+                                        </Link>
                                     </h2>
                                 </div>
                                 <div>

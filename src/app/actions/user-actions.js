@@ -14,9 +14,9 @@ export function deleteUserSuccess(userId) {
   };
 }
 
-export function userProfileSuccess(userProfile) {
+export function currentUserProfileSuccess(userProfile) {
   return {
-    type: types.USER_PROFILE_SUCCESS,
+    type: types.CURRENT_USER_PROFILE_SUCCESS,
     userProfile
   };
 }
@@ -26,6 +26,13 @@ export function userMoodsSuccess(userMoods) {
         userMoods
     };
 }
+export function userProfileSuccess(userProfile) {
+    return {
+        type: types.USER_PROFILE_SUCCESS,
+        userProfile
+    };
+}
+
 export function userLoginSuccess(user) {
     return {
         type: types.LOGIN_SUCCESS,
