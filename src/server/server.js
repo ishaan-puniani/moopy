@@ -6,7 +6,7 @@
 
 var HOST = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || undefined;
 var PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000;
-var MONGO_URI = process.env.MONGOLAB_URI ||  process.env.MONGOHQ_URL || process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME || "mongodb://localhost/moopy";
+var MONGO_URI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME || "mongodb://localhost/moopy";
 
 
 var express = require('express');
@@ -15,6 +15,9 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+var synchronizer = require('./synchronizer')
+
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -71,3 +74,7 @@ app.listen(PORT, HOST, function () {
     console.log('Serving: localhost:' + PORT);
 });
 
+setInterval(function () {
+    console.log("Synchronizing...")
+    synchronizer.sync();
+}, 1000 * 60);

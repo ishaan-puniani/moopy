@@ -8,7 +8,10 @@ import { getPeopleSuccess } from '../actions/peoplePicker-actions';
 export function searchPeople(query = '') {
   return axios.get('/api/search/suggestions/'+ query)
     .then(response => {
-      store.dispatch(getPeopleSuccess(response.data));
+        if(response.data && response.data.success){
+            store.dispatch(getPeopleSuccess(response.data));
+        }
+
       return response;
     });
 }

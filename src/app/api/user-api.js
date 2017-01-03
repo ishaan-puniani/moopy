@@ -16,7 +16,9 @@ import {cookiesSet, cookiesGet, cookiesExpire} from 'redux-cookies';
 export function getUsers() {
     return axios.get('/api/users')
         .then(response => {
-            store.dispatch(getUsersSuccess(response.data));
+            if (response.data && response.data.success) {
+                store.dispatch(getUsersSuccess(response.data.users));
+            }
             return response;
         });
 }
@@ -49,12 +51,11 @@ export function deleteUser(userId) {
  * getProfile() is much more complex because it has to make
  * three XHR requests to get all the profile info.
  */
-
 export function getProfile(userId) {
     var url = '/api/users/profile' + (userId ? "?id=" + userId : "");
     return axios.get(url)
         .then(response => {
-            if (response.data.success) {
+            if (response.data && response.data.success) {
                 store.dispatch(userLoginSuccess(response.data.profile));
             }
             return response;
@@ -100,7 +101,7 @@ export function getProfile(userId) {
 export function getMood(userId, start, end) {
     return axios.post('/api/moods/Vivek')
         .then(response => {
-            if (response.data.success) {
+            if (response.data && response.data.success) {
                 store.dispatch(userMoodsSuccess(response.data));
             }
             return response;
@@ -110,7 +111,20 @@ export function getMood(userId, start, end) {
 export function login(userId, password) {
     return axios.post('/api/users/login', {userId: userId, password: password})
         .then(response => {
-            if (response.data.success) {
+            if (response.data && response.data.success) {
+                store.dispatch(cookiesSet('auth', response.data.token, {expires: 365}));
+                store.dispatch(userLoginSuccess(response.data.profile));
+                window.location.href = "/";
+            }
+            return response;
+        });
+}
+
+
+export function register(userId, password) {
+    return axios.post('/api/users/create', {userId: userId, password: password})
+        .then(response => {
+            if (response.data && response.data.success) {
                 store.dispatch(cookiesSet('auth', response.data.token, {expires: 365}));
                 store.dispatch(userLoginSuccess(response.data.profile));
             }

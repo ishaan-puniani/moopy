@@ -9,12 +9,12 @@ export default function(props) {
       {props.users.map(user => {
 
         return (
-          <div key={user.id} className="data-list-item">
+          <div key={user._id} className="data-list-item">
             <div className="details">
               <Link to={'/users/' + user.id}>{user.name}</Link>
             </div>
             <div className="controls">
-              <button onClick={props.deleteUser.bind(null, user.id)} className="delete">Delete</button>
+              <button onClick={props.deleteUser.bind(null, user.id)} className="delete">Activate</button>
             </div>
           </div>
         );

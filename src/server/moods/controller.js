@@ -62,9 +62,11 @@ function updateMoodFromChildren(item, callback) {
             }
         }
     ], function (err, data) {
-        //console.log(data);
+        console.log(data);
         item.mood = data[0].avgMoodOfChildren;
+        console.log("Updated Mood",item.mood);
         item.save(function (saveErr, saved) {
+            console.log("Mood Updated");
             callback();
         });
     });
@@ -97,7 +99,7 @@ module.exports = {
         var name = req.body.name, children = [], selections = req.body.selection;
 
         for (var idx = 0; idx < selections.length; idx++) {
-            children.push(selections[idx].value);
+            children.push(selections[idx]);
         }
 
         Mood.findOne({name: name}, function (err, data) {

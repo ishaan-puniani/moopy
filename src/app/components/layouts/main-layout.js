@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import SynchronizerContainer from '../containers/serverSynchronizer-container'
+import UserLoginLinksContainer from '../containers/user_login/userLogin-links-container'
 
 // Using "Stateless Functional Components"
 export default function (props) {
@@ -21,6 +22,8 @@ export default function (props) {
                         <li><Link to="/widgets" activeClassName="active">Widgets</Link></li>
                         <li><Link to="/dashboards" activeClassName="active">Dashboards</Link></li>
                     </ul>
+                    <UserLoginLinksContainer />
+
                 </Navbar>
             </header>
             <main className="container">

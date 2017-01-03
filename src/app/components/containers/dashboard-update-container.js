@@ -7,6 +7,7 @@ import {setSelectedPeople} from '../../actions/peoplePicker-actions';
 import {createDashboard, updateDashboard} from '../../api/dashboard-api';
 import {connect} from 'react-redux';
 import store from '../../store';
+import {browserHistory} from 'react-router'
 
 const DashboardUpdateContainer = React.createClass({
     isEdit: false,
@@ -16,13 +17,13 @@ const DashboardUpdateContainer = React.createClass({
         let selectedDashboard = this.props.dashboard;
 
         if (name && name.length > 0 && name === selectedDashboard.name) {
-            var selectedChildren = selectedDashboard.children.map(function (child) {
-                return {value: child}
-            });
+            var selectedChildren = selectedDashboard.children;
             store.dispatch(setSelectedPeople(selectedChildren));
             me.isEdit = true;
             me.refs.name.value = name;
             me.refs.internalName.value = name;
+        }else{
+            browserHistory.push('/dashboards');
         }
     },
 
@@ -41,6 +42,7 @@ const DashboardUpdateContainer = React.createClass({
             name: this.refs.name.value,
             selection: this.props.selectedPeople
         });
+        browserHistory.goBack();
     },
 
     render: function () {

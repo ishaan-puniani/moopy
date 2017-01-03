@@ -10,8 +10,21 @@ var MoodItemSchema = new mongoose.Schema({
     mood: Number,
     type: { type: String, default: "user" },
     owner: String,
+    createdAt: { type: Date },
+    updatedAt: { type: Date },
     children:[]
 }, {timestamps: true});
+
+MoodItemSchema.pre('save', function(next){
+    var now = new Date();
+    this.updatedAt = now;
+    if ( !this.createdAt ) {
+        this.createdAt = now;
+    }
+    next();
+});
+
+
 
 var MoodItem = mongoose.model('Mood', MoodItemSchema);
 

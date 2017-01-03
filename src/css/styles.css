@@ -1,7 +1,11 @@
-html, body{height: 100%}
-#root, #root>div:first-child, .container{
+html, body {
+    height: 100%
+}
+
+#root, #root > div:first-child, .container {
     height: 97%;
 }
+
 html {
     box-sizing: border-box;
     color: #222;
@@ -24,20 +28,22 @@ body {
     background-image: url('/images/backdrop.png') !important;
     background-size: 100px;
 }
-.container .background{
-    background-color: rgba(255,255,255, 0.85);
+
+.container .background {
+    background-color: rgba(255, 255, 255, 0.85);
 }
-.pageHeader{
-    border-radius: 6px;
-    padding: 60px;
-    margin: 10px 0px;
-}
-.pageContent{
+
+.pageHeader {
     border-radius: 6px;
     padding: 60px;
     margin: 10px 0px;
 }
 
+.pageContent {
+    border-radius: 6px;
+    padding: 60px;
+    margin: 10px 0px;
+}
 
 a {
     color: #2297D1;
@@ -213,23 +219,70 @@ main {
 .thumbnail h1 {
     text-align: center;
 }
-.data-list-item.members{
+
+.data-list-item.members {
     display: block;
 }
-.members .progress{
+
+.members .progress {
     width: 100%;
 }
-.dashboardTitle{
-    overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
+
+.dashboardTitle {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-.updateDashboardForm > input.name{
+
+.updateDashboardForm > input.name {
     margin: 0 0 15px 0;
     padding: 8px;
     width: 100%;
 }
-.updateDashboardForm .btn.btn-primary{
+
+.updateDashboardForm .btn.btn-primary {
     margin: 15px 0;
+}
+
+/*Log in form */
+
+.login .wrapper {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.login .form-signin {
+    max-width: 380px;
+    padding: 15px 35px 45px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.login.form-signin-heading, .login .checkbox {
+    margin-bottom: 30px;
+}
+
+.login .checkbox {
+    font-weight: normal;
+}
+
+.login .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+
+.login input[type="text"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.login input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 

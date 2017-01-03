@@ -11,19 +11,21 @@ import {setSelectedPeople} from '../../actions/peoplePicker-actions';
 
 
 class RepoAdapter extends ItemAdapter {
-    newFromValue(value) {
-        return {value}
+    newFromValue(name) {
+        return {name}
     }
 
     renderSelected(item) {
-        return <div className="tag" key={item.value}>
-            {item.value} {item.img && <img src={item.img}/>}
+        var name = item.name || item;
+        return <div className="tag" key={name}>
+            {name} {item.img && <img src={item.img}/>}
         </div>
     }
 
     renderSuggested(item) {
-        return <div className="tag-item" key={item.value}>
-            {item.img && <img src={item.img}/>} {item.value}
+        var name = item.name || item;
+        return <div className="tag-item" key={name}>
+            {item.img && <img src={item.img}/>} {name}
         </div>
     }
 
@@ -43,87 +45,11 @@ class RepoAdapter extends ItemAdapter {
      }*/
 }
 RepoAdapter.instance = new RepoAdapter();
-
-
-let lastSearch;
-
-/*
- function onRepoSearch(search, page, prev) { // $fold-line$
- if (search) {
- // GitHub search doesn't allow slashes, so strip off user prefix
- const sp = search.lastIndexOf('/')
- if (sp >= 0) {
- search = search.substring(sp + 1)
- }
-
- // ignore redundant searches where only the user prefix changed
- if (search === lastSearch && !page) {
- return
- }
- lastSearch = search
-
- setState({
- reposMessage: 'Searching for matching repositories...',
- reposMore: null
- })
- let url = 'https://api.github.com/search/repositories?q=' +
- encodeURIComponent(search)
- if (page) {
- url += '&page=' + page
- }
- fetch(url).then(response => {
- if (response.ok) {
- response.json().then(json => {
- let repos, reposMessage, reposMore
- if (json.total_count === 0) {
- reposMessage = 'No matching repositories'
- } else {
- repos = prev ? prev.concat(json.items) : json.items
- if (repos.length < json.total_count) {
- reposMessage = 'Load more...'
- reposMore = () => onRepoSearch(search, page ? page + 1 : 2, repos)
- }
- }
- setState({
- repos,
- reposMessage,
- reposMore
- })
- })
- } else {
- setState({
- repos: null,
- reposMessage: 'Repository search returned error: ' + response.statusText,
- reposMore: null
- })
- }
- }, err => {
- setState({
- repos: null,
- reposMessage: 'Repository search failed: ' + err.message,
- reposMore: null
- })
- })
- } else {
- setState({
- repos: null,
- reposMessage: 'Type at least one character to get suggestions',
- reposMore: null
- })
- }
- }
-
- function onRepoChange(value) {
- setState({repo: value})
- }
- */
-
-
 const PeoplePickerFormContainer = React.createClass({
     selectedPeople: [],
     onAdd: function (item) {
         var me = this;
-        me.selectedPeople.push(item);
+        me.selectedPeople.push(item.name);
         store.dispatch(setSelectedPeople(me.selectedPeople));
     },
     onRemove: function (itemIdxRemoved) {
@@ -140,7 +66,7 @@ const PeoplePickerFormContainer = React.createClass({
         }
     },
     render: function () {
-        this.selectedPeople= this.props.selectedPeople;
+        this.selectedPeople = this.props.selectedPeople;
         return (
             <Autosuggest
                 datalist={this.props.people}
@@ -150,7 +76,7 @@ const PeoplePickerFormContainer = React.createClass({
                 placeholder="Search People Or Group.."
                 value={this.props.selectedPeople}
                 itemAdapter={RepoAdapter.instance}
-                itemValuePropName="value"
+                itemValuePropName="name"
                 multiple
                 allowDuplicates={false}
                 searchDebounce={500}

@@ -12,11 +12,11 @@ const peoplePickerReducer = function (state = initialState, action) {
 
         case types.GET_PEOPLE_SUCCESS:
             return Object.assign({}, state, {
-                people: action.people,
-                reposMessage: 'Type at least one character to get suggestions',
+                people: action.people.results,
+                reposMessage: action.people.message || 'Type at least one character to get suggestions',
                 reposMore: null
             });
-            case types.SET_SELECTED_PEOPLE:
+        case types.SET_SELECTED_PEOPLE:
             return Object.assign({}, state, {
                 selectedPeople: action.selectedPeople
             });

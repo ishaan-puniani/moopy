@@ -17,8 +17,8 @@ const DashboardListContainer = React.createClass({
     render: function () {
         return (
             <div>
-                <div><Link to="/dashboards/create" activeClassName="active">Create Dashboard</Link></div>
-                <div><a href="/dashboards/create">Create Dashboard</a></div>
+                <div><a className="btn btn-primary btn-block"  href="/dashboards/create">Create New Dashboard</a></div>
+                <br /><br />
 
                 <DashboardList dashboards={this.props.dashboards}
                                moods={this.props.moods}

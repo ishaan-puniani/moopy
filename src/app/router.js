@@ -14,6 +14,7 @@ import WidgetListContainer from './components/containers/widget-list-container';
 import DashBoardListContainer from './components/containers/dashboard-list-container';
 import DashBoardContainer from './components/containers/dashboard-container';
 import UpdateDashBoardContainer from './components/containers/dashboard-update-container';
+import UserLoginContainer from './components/containers/userLogin-form-container';
 
 export default (
     <Router history={browserHistory}>
@@ -42,6 +43,7 @@ export default (
                 </Route>
             </Route>
 
+            <Route path="login" component={UserLoginContainer}/>
         </Route>
     </Router>
 );
