@@ -69,7 +69,7 @@ export default function (props) {
 
 
     var moodValue = (props.moods[props.dashboard.name] ? props.moods[props.dashboard.name].mood : 0), mood = 20 * moodValue;
-    var moodImage = "/images/" + moodValue + ".png";
+    var moodImage = "/images/" + parseInt(moodValue) + ".png";
     var cssClass = moodCssClassForColor(mood);
 
     return (
@@ -89,7 +89,7 @@ export default function (props) {
                     {props.dashboard.children.map(child => {
                         var childMoodValue = (props.moods[child] ? props.moods[child].mood : 0);
                         var childMood = 20 * childMoodValue;
-                        var childMoodImage = "/images/" + childMoodValue + ".png";
+                        var childMoodImage = "/images/" + parseInt(childMoodValue) + ".png";
                         var childCssClass = moodCssClassForColor(childMood);
                         return (
                             <div key={child} className="data-list-item members">

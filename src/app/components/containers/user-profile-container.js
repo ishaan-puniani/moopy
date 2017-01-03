@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import UserProfile from '../views/user-profile';
 import UserMood from '../views/user-mood';
 import * as userApi from '../../api/user-api';
+import store from '../../store';
+import {
+    userMoodsSuccess
+} from '../../actions/user-actions';
 
 const UserProfileContainer = React.createClass({
     selected: "-1",
@@ -15,6 +19,9 @@ const UserProfileContainer = React.createClass({
         let userId = this.props.params.userId;
         this.selected = selected;
         userApi.getMoodOverDuration(userId, start, end, old);
+    },
+    componentWillUnmount() {
+        store.dispatch(userMoodsSuccess([]));
     },
     render: function () {
         return (

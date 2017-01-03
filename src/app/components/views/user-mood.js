@@ -5,7 +5,6 @@ import {Line} from 'react-chartjs-2';
 // Using "Stateless Functional Components"
 export default function (props) {
     var name = props.label;
-    console.log(props.selected);
     var xAxes = props.selected == "0" ? [{
             type: 'time',
             time: {
@@ -36,16 +35,13 @@ export default function (props) {
             }
         }];
     var rangeChanged = function (ths) {
-        debugger;
         var start = "", end = "";
         var selectedValue = ths.target.value;
         if (selectedValue === "0") {
             props.onDateRangeChanges(start, end, 1, selectedValue);
-
         }
         if (selectedValue === "1") {
             props.onDateRangeChanges(start, end, 7, selectedValue);
-
         }
         if (selectedValue === "2") {
             props.onDateRangeChanges(start, end, 30, selectedValue)
@@ -59,7 +55,6 @@ export default function (props) {
         if (selectedValue === "5") {
             props.onDateRangeChanges(start, end, 3650, selectedValue)
         }
-
         if (selectedValue === "-1") {
             //   props.onDateRangeChanges(start, end,7)
         }
@@ -106,7 +101,6 @@ export default function (props) {
             }]
         }
     };
-    console.log(options);
 
     return (
         <div className="pageContent user-moods background">
