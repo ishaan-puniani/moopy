@@ -4,6 +4,7 @@
 
 var Mood = require('./model');
 var async = require('async');
+var ctrlNotifications = require('../notifications/controller')
 
 function bubbleUp(nodeName, cb) {
     var me = this;
@@ -45,6 +46,84 @@ function bubbleUp(nodeName, cb) {
     }
     me.trigger();
 }
+
+//http://stackoverflow.com/questions/15685588/javascript-how-to-control-flow-with-async-recursive-tree-traversal
+function drillDown(rootNode, onComplete) {
+
+    // Count of outstanding requests.
+    // Upon a return of any request,
+    // if this count is zero, we know we're done.
+    var outstandingRequests = 0;
+
+    // A list of processed nodes,
+    // which is used to handle artifacts
+    // of non-tree graphs (cycles, etc).
+    // Technically, since we're processing a "tree",
+    // this logic isn't needed, and could be
+    // completely removed.
+    //
+    // ... but this also gives us something to inspect
+    // in the sample test code. :)
+    var processedNodes = [];
+
+    function markRequestStart() {
+        outstandingRequests++;
+    }
+
+    function markRequestComplete() {
+        outstandingRequests--;
+        // We're done, let's execute the overall callback
+        if (outstandingRequests < 1) {
+            onComplete(processedNodes);
+        }
+    }
+
+    function processNode(node) {
+        // Kickoff request for this node
+        markRequestStart();
+        // (We use a regular HTTP GET request as a
+        // stand-in for any asynchronous action)
+        console.log("finding " + node);
+        processedNodes.push(node);
+        Mood.findOne({name: node}, function (err, nodeData) {
+            if (nodeData) {
+
+                if (nodeData.type === 'dashboard') {
+                    processedNodes.splice(processedNodes.indexOf(nodeData.name), 1); // remove dashboards
+                    //processedNodes.concat(node.children);
+                    nodeData.children.forEach(function (childNode) {
+                        // Only process nodes not already processed
+                        // (only happens for non-tree graphs,
+                        // which could include cycles or multi-parent nodes)
+                        //  console.log("processedNodes", processedNodes)
+                        if (processedNodes.indexOf(childNode) < 0) {
+                            processNode(childNode);
+                        }
+                    });
+                }
+            }
+            markRequestComplete();
+        });
+        /*jQuery.get("/?uid=" + node.uid, function (data) {
+         processedNodes[node.uid] = data;
+         }).fail(function () {
+         console.log("Request failed!");
+         }).always(function () {
+         // When the request returns:
+         // 1) Mark it as complete in the ref count
+         // 2) Execute the overall callback if the ref count hits zero
+         markRequestComplete();
+         });*/
+
+        // Recursively process all child nodes (kicking off requests for each)
+
+
+    }
+
+    processNode(rootNode);
+}
+
+
 function updateMoodFromChildren(item, callback) {
     var children = item.children;
     Mood.aggregate([
@@ -179,6 +258,9 @@ module.exports = {
             if (err) {
                 res.send({error: "Error while saving Data"});
             } else {
+                ctrlNotifications.remove(name, function () {
+                    console.log("Notification Removed for user " + name);
+                })
                 new bubbleUp(name, function () {
                     console.log("done");
                     res.send({success: true});
@@ -203,5 +285,19 @@ module.exports = {
                 res.send({success: true, moods: data});
             }
         });
+    },
+    askFromUsers: function (req, res) {
+        // get all users of Dashboard
+        var dashboardName = req.params.name;
+        if (dashboardName && dashboardName.length > 0) {
+            drillDown(dashboardName, function (members) {
+                console.log(members);
+                ctrlNotifications.add(members, function () {
+                    res.send({success: true});
+                });
+            });
+        } else {
+            res.send({success: false});
+        }
     }
 };

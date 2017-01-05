@@ -69,6 +69,13 @@ export function getMoods(names) {
         });
 }
 
+export function askForMood(dashboardName) {
+    return axios.get('/api/dashboard/ask/' + dashboardName)
+        .then(response => {
+            return response;
+        });
+}
+
 export function searchDashboard(query) {
     return getAllDashboards(query);
 }

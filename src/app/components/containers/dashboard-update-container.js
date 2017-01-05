@@ -23,7 +23,7 @@ const DashboardUpdateContainer = React.createClass({
             me.refs.name.value = name;
             me.refs.internalName.value = name;
         }else{
-            browserHistory.push('/dashboards');
+            //browserHistory.push('/dashboards');
         }
     },
 
