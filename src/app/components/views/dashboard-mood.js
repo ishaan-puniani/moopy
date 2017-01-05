@@ -4,7 +4,6 @@ import {Line} from 'react-chartjs-2';
 // gor week
 // Using "Stateless Functional Components"
 export default function (props) {
-    var name = props.label;
     var xAxes = props.selected == "0" ? [{
             type: 'time',
             time: {
@@ -62,73 +61,97 @@ export default function (props) {
     };
 
 
-    var da = props.moods;
-    var dataset = da.map(function (d) {
-        var r = (Math.floor(Math.random() * 256)), g = (Math.floor(Math.random() * 256)), b = (Math.floor(Math.random() * 256));
+    var getChart = function (props) {
 
-        var color = 'rgb(' + r + ',' + g + ',' + b + ')';
-        var fill = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
+            if (props.moods && props.moods.length > 0) {
 
-        var values = [];
-        if (d.moods) {
-            d.moods.forEach(function (mood) {
-                values.push({x:mood.createdAt, y:mood.mood});
-            });
-        }
+                var name = props.label;
+
+                var da = props.moods;
+                var dataset = da.map(function (d) {
+                    var r = (Math.floor(Math.random() * 256)), g = (Math.floor(Math.random() * 256)), b = (Math.floor(Math.random() * 256));
+
+                    var color = 'rgb(' + r + ',' + g + ',' + b + ')';
+                    var fill = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
+
+                    var values = [];
+                    if (d.moods) {
+                        d.moods.forEach(function (mood) {
+                            values.push({x: mood.createdAt, y: mood.mood});
+                        });
+                    }
 
 
-        return {
-            label: d.name,
-            data: values,//[1, 5],
-            tension: 0,
-            borderColor: color,
-            backgroundColor: fill,
-            radius: 0,
-            pointHitRadius: 5,
-        }
+                    return {
+                        label: d.name,
+                        data: values,//[1, 5],
+                        tension: 0,
+                        borderColor: color,
+                        backgroundColor: fill,
+                        radius: 0,
+                        pointHitRadius: 5,
+                    }
 
-    });
-
-    var data = {
-        //labels: nameLabels,//[new Date(), new Date(new Date().getTime() + 24 * 60 * 60 * 1000)],
-        datasets: dataset
-    };
-
-    var options = {
-        stacked: true,
-        title: {
-            display: true,
-            text: name
-        },
-        scales: {
-            /* for today : */
-            xAxes: xAxes,
-
-            yAxes: [{
-                position: "left",
-                ticks: {
-                    max: 6,
-                    min: 0
+                });
+                console.log(dataset);
+                if (dataset.length == 0) {
+                    dataset = [{
+                        label: "",
+                        data: [],//[1, 5],
+                        tension: 0,
+                        borderColor: 'rgb(255,255,255)',
+                        backgroundColor: 'rgb(255,255,255)',
+                        radius: 0,
+                        pointHitRadius: 5,
+                    }];
                 }
-            }]
-        }
-    };
+                var data = {
+                    //labels: nameLabels,//[new Date(), new Date(new Date().getTime() + 24 * 60 * 60 * 1000)],
+                    datasets: dataset
+                };
 
+                var options = {
+                    animation: false,
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: name
+                    },
+                    scales: {
+                        /* for today : */
+                        xAxes: xAxes,
+
+                        yAxes: [{
+                            position: "left",
+                            ticks: {
+                                max: 6,
+                                min: 0
+                            }
+                        }]
+                    }
+                };
+
+                return (            <Line data={data}
+                                          options={options}
+                />)
+            } else {
+                return (<div></div>);
+            }
+        }
+        ;
     return (
-        <div className="pageContent user-moods background">Dashboard mood
-            <select onChange={rangeChanged}>
-                <option value={-1}>-- Select --</option>
-                <option value={0}>Today</option>
-                <option value={1}>This Week</option>
-                <option value={2}>This Month</option>
-                <option value={3}>This Quater</option>
-                <option value={4}>This Year</option>
-                <option value={5}>All</option>
-            </select>
-            <div>
-                <Line data={data}
-                      options={options}
-                />
+        <div className="pageContent user-moods background">
+            Please choose time <select onChange={rangeChanged}>
+            <option value={-1}>-- Select --</option>
+            <option value={0}>Today</option>
+            <option value={1}>This Week</option>
+            <option value={2}>This Month</option>
+            <option value={3}>This Quater</option>
+            <option value={4}>This Year</option>
+            <option value={5}>All</option>
+        </select>
+            <div style={{"minHeight": "500px"}}>
+                {getChart(props)}
             </div>
         </div>
     );
