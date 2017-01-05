@@ -81,11 +81,13 @@ export default function (props) {
                 <div className="pageHeader background">
                     <h1>{props.dashboard.name} <img className="dashboardMoodImg" src={moodImage} alt="mood"/></h1>
                     <div>
-                        <ProgressBar now={mood} bsStyle={cssClass}/>
+                        <ProgressBar now={mood} label={`${mood}`}  bsStyle={cssClass}/>
                     </div>
                     <div>
 
                         <Link className="btn btn-default" to={'/' + props.dashboard.name + '/edit'}>EDIT</Link>
+                        <Link className="btn btn-primary"
+                              to={'/dashboards/' + props.dashboard.name + '/details'}>Details</Link>
                         <div className="span6 pull-right">
                             <a className="btn btn-primary" onClick={askMembers}>Ask Mood from Members</a>
                         </div>

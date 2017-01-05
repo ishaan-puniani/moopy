@@ -15,6 +15,8 @@ import DashBoardListContainer from './components/containers/dashboard-list-conta
 import DashBoardContainer from './components/containers/dashboard-container';
 import UpdateDashBoardContainer from './components/containers/dashboard-update-container';
 import UserLoginContainer from './components/containers/userLogin-form-container';
+import DashBoardDetailsContainer from './components/containers/dashboard-details-container';
+
 
 export default (
     <Router history={browserHistory}>
@@ -34,6 +36,7 @@ export default (
                 </Route>
                 <Route path="create" component={UpdateDashBoardContainer}/>
                 <Route path="/:name/edit" component={UpdateDashBoardContainer}/>
+                <Route path="/dashboards/:name/details" component={DashBoardDetailsContainer}/>
                 <Route path=":name" component={DashBoardContainer}/>
             </Route>
 

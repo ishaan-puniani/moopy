@@ -9,7 +9,8 @@ import {
     getAllDashboardsSuccess,
     getDashboardSuccess,
     setDashboardUsersForMoodSynch,
-    getUsersMoodSynchSucess
+    getUsersMoodSynchSucess,
+    dashboardMoodDetailsSuccess
 } from '../actions/dashboard-actions';
 
 /**
@@ -78,4 +79,14 @@ export function askForMood(dashboardName) {
 
 export function searchDashboard(query) {
     return getAllDashboards(query);
+}
+
+export function getMoodOverDuration(dashboardName, start, end, old) {
+    return axios.post('/api/dashboard/details/' + dashboardName, {start: start, end: end, old: old})
+        .then(response => {
+            if (response.data && response.data.success) {
+                store.dispatch(dashboardMoodDetailsSuccess(response.data.moods));
+            }
+            return response;
+        });
 }

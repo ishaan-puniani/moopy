@@ -7,7 +7,8 @@ const initialState = {
         children: []
     },
     users: undefined,
-    moods: {}
+    moods: {},
+    dashboardMoodDetails: []
 };
 
 const dashboardReducer = function (state = initialState, action) {
@@ -26,6 +27,11 @@ const dashboardReducer = function (state = initialState, action) {
         case types.GET_DASHBOARD_USERS_FOR_MOOD_SYNC:
             let userMoods = action.moods;
             return Object.assign({}, state, {moods: userMoods});
+
+
+        case types.GET_DASHBOARD_MOOD_DETAILS:
+            let usersMoods = action.moods;
+            return Object.assign({}, state, {dashboardMoodDetails: usersMoods});
 
 
         case types.DELETE_WIDGET_SUCCESS:

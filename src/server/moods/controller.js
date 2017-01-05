@@ -299,5 +299,61 @@ module.exports = {
         } else {
             res.send({success: false});
         }
+    },
+    getDashboardMoodDetails: function (req, res) {
+        var name = req.params.user, start = req.body.start, end = req.body.end, old = parseInt(req.body.old);
+        console.log({name: name, start: start, end: end, old: old});
+
+        var dashboardName = req.params.name;
+        if (dashboardName && dashboardName.length > 0) {
+            drillDown(dashboardName, function (members) {
+                console.log(members);
+                var cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - old);
+
+
+                Mood.aggregate([
+                    {"$sort": {"createdAt": -1}}
+                    ,
+                    {
+                        "$match": {
+                            "$and": [
+                                {"name": {"$in": members}},
+                                {"createdAt": {"$gte": cutoff}}
+                            ]
+                        }
+                    }
+                    ,
+                    {
+                        "$group": {
+                            "_id": "$name",
+                            "mood": {
+                                "$push": {
+                                    "mood": "$mood",
+                                    "createdAt": "$createdAt"
+                                }
+                            }
+                        }
+                    }
+                    ,
+                    {
+                        "$project": {
+                            "name": "$_id",
+                            "moods": "$mood"
+                        }
+                    }
+                ], function (err, data) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send({success: true, moods: data});
+                    }
+                });
+
+
+            });
+        } else {
+            res.send({success: false});
+        }
     }
 };

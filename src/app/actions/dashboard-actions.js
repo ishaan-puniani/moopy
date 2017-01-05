@@ -47,4 +47,10 @@ export function getUsersMoodSynchSucess(moods) {
         moods
     };
 }
+export function dashboardMoodDetailsSuccess(moods) {
+    return {
+        type: types.GET_DASHBOARD_MOOD_DETAILS,
+        moods
+    };
+}
 
