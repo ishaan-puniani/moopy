@@ -17,12 +17,16 @@ const DashboardUpdateContainer = React.createClass({
         let selectedDashboard = this.props.dashboard;
 
         if (name && name.length > 0 && name === selectedDashboard.name) {
-            var selectedChildren = selectedDashboard.children;
+            var selectedChildren = selectedDashboard.children.filter(function(n){ return (n != undefined && n !== null) }); /*map(function (child) {
+                if(child !== null && child !== undefined){
+                    return child;
+                }
+            });*/
             store.dispatch(setSelectedPeople(selectedChildren));
             me.isEdit = true;
             me.refs.name.value = name;
             me.refs.internalName.value = name;
-        }else{
+        } else {
             //browserHistory.push('/dashboards');
         }
     },

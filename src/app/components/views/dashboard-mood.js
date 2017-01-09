@@ -72,7 +72,7 @@ export default function (props) {
                     var r = (Math.floor(Math.random() * 256)), g = (Math.floor(Math.random() * 256)), b = (Math.floor(Math.random() * 256));
 
                     var color = 'rgb(' + r + ',' + g + ',' + b + ')';
-                    var fill = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
+                    var fill = 'rgba(' + r + ',' + g + ',' + b + ',0.1)';
 
                     var values = [];
                     if (d.moods) {

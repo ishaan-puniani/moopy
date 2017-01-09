@@ -22,7 +22,7 @@ export default function (props) {
                                 <img src={moodImage} alt="mood" style={{width: "25%"}}/>
                             </Link>
                             <div className="caption">
-                                <ProgressBar now={mood} bsStyle={cssClass}/>
+                                <ProgressBar now={mood} bsStyle={cssClass} label={`${moodValue}`}/>
                                 <p>{props.moods[dashboard.name] ? props.moods[dashboard.name].mood : ""}</p>
                             </div>
                             <div className="controls">

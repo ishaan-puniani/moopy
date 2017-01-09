@@ -81,7 +81,7 @@ export default function (props) {
                 <div className="pageHeader background">
                     <h1>{props.dashboard.name} <img className="dashboardMoodImg" src={moodImage} alt="mood"/></h1>
                     <div>
-                        <ProgressBar now={mood} label={`${mood}`}  bsStyle={cssClass}/>
+                        <ProgressBar now={mood} label={`${moodValue}`}  bsStyle={cssClass}/>
                     </div>
                     <div>
 
@@ -113,7 +113,7 @@ export default function (props) {
                                     </h2>
                                 </div>
                                 <div>
-                                    <ProgressBar now={childMood} bsStyle={childCssClass}/>
+                                    <ProgressBar now={childMood} bsStyle={childCssClass}  label={`${childMoodValue}`} />
                                 </div>
                             </div>
                         );

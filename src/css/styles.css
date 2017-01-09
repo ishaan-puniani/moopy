@@ -285,4 +285,10 @@ main {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-
+.updateDashboardForm ul.autosuggest-choices{
+    height: 100%;
+    overflow: auto;
+}
+.updateDashboardForm span.input-group-btn{
+    display: none;
+}
