@@ -170,6 +170,7 @@ module.exports = {
             if (err) {
                 res.send({error: "Unable to save"});
             } else {
+                new bubbleUp(children[0], function () {});
                 res.send({success: true});
             }
         });
@@ -190,6 +191,7 @@ module.exports = {
                     if (err) {
                         res.send({error: "Unable to update"});
                     } else {
+                        new bubbleUp(children[0], function () {});
                         res.send({success: true});
                     }
                 });

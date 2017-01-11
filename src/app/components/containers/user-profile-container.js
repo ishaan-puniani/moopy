@@ -7,6 +7,9 @@ import store from '../../store';
 import {
     userMoodsSuccess
 } from '../../actions/user-actions';
+import {getDashboardInCallback} from '../../api/dashboard-api';
+import {browserHistory} from 'react-router'
+
 
 const UserProfileContainer = React.createClass({
     selected: "-1",
@@ -14,6 +17,14 @@ const UserProfileContainer = React.createClass({
         let userId = this.props.params.userId;
         //userApi.getMoodOverDuration(userId, start, end);
         userApi.getUserProfile(userId)
+        getDashboardInCallback(userId, function (data) {
+            if (data._id) {
+                var dashboardDetails = "/dashboards/" + data.name;
+                browserHistory.push(dashboardDetails);
+            }else{
+                userApi.getMoodOverDuration(userId, "", "", 30);
+            }
+        })
     },
     onDateRangeChanges: function (start, end, old, selected) {
         let userId = this.props.params.userId;

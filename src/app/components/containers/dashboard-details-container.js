@@ -11,6 +11,8 @@ import {
 const DashboardDetailsContainer = React.createClass({
     selected: "-1",
     componentDidMount: function () {
+        let dashboardName = this.props.params.name;
+        dashboardApi.getMoodOverDuration(dashboardName, "", "", 30);
     },
     onDateRangeChanges: function (start, end, old, selected) {
         let dashboardName = this.props.params.name;

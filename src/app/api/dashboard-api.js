@@ -90,3 +90,14 @@ export function getMoodOverDuration(dashboardName, start, end, old) {
             return response;
         });
 }
+
+
+export function getDashboardInCallback(dashboardName, callback) {
+    return axios.get('/api/dashboard/' + dashboardName)
+        .then(response => {
+            if (response.data) {
+                callback(response.data);
+            }
+            return response;
+        });
+}

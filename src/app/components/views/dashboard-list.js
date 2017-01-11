@@ -13,6 +13,7 @@ export default function (props) {
             {props.dashboards.map(dashboard => {
                 var moodValue = (props.moods[dashboard.name] ? props.moods[dashboard.name].mood : 0), mood = 20 * moodValue;
                 var moodImage = "/images/" + parseInt(moodValue) + ".png";
+                moodValue = parseFloat(moodValue).toFixed(2);
                 var cssClass = moodCssClassForColor(mood);
                 return (
                     <div className="col-md-4" key={dashboard.name}>

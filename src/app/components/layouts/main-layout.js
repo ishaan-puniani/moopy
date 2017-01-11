@@ -18,12 +18,14 @@ export default function (props) {
                     </Navbar.Header>
                     <ul className="nav navbar-nav">
                         <li><Link to="/" activeClassName="active">Home</Link></li>
-                        <li><Link to="/users" activeClassName="active">Users</Link></li>
-                        <li><Link to="/widgets" activeClassName="active">Widgets</Link></li>
-                        <li><Link to="/dashboards" activeClassName="active">Dashboards</Link></li>
+                        <li><Link to="/users" activeClassName="active" style={{display: "none"}}>Users</Link></li>
+                        <li><Link to="/widgets" activeClassName="active" style={{display: "none"}}>Widgets</Link></li>
+                        <li><Link to="/dashboards" activeClassName="active">Dashboards</Link>
+                        </li>
                     </ul>
-                    <UserLoginLinksContainer />
-
+                    <div style={{display: "none"}}>
+                        <UserLoginLinksContainer />
+                    </div>
                 </Navbar>
             </header>
             <main className="container">
